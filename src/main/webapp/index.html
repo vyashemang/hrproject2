@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/form-validation.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Academic ERP</h2>
+    </div>
+
+    <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Employee Details</h4>
+        <form class="needs-validation-students" id="employee-validation" novalidate>
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input class="form-control" id="email" placeholder="you@example.com" required type="email">
+                <div class="invalid-feedback">
+                    Please enter a valid email address for updates.
+                </div>
+            </div>
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+        </form>
+    </div>
+    <br/>
+    <hr class="mb-4">
+
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/form-validation.js"></script>
+</html>

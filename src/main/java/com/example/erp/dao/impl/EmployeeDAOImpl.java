@@ -23,4 +23,28 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean login(String email) {
+        // Get the session
+        boolean valid = false;
+        try(Session session = SessionUtils.getSession())
+        {
+            // Begin transaction
+            session.beginTransaction();
+            //Integer id  = (Integer)session.save(emp);
+            //System.out.println("Employee added with id:"+id);
+
+            // If valid
+            valid = true;
+
+            session.getTransaction().commit();
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+        }
+        return valid;
+    }
+
+
 }
