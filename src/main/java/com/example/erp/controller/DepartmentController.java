@@ -2,6 +2,7 @@ package com.example.erp.controller;
 
 import com.example.erp.bean.Department;
 import com.example.erp.service.DepartmentService;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +14,7 @@ import java.net.URISyntaxException;
 
 @Path("department")
 public class DepartmentController {
+
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)

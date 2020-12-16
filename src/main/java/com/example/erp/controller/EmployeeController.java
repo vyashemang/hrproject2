@@ -17,13 +17,14 @@ public class EmployeeController {
     @Path("/login")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response loginEmployee(@FormDataParam("email") String email) throws URISyntaxException {
+    public Response verifyEmail(@FormDataParam("email") String email) throws URISyntaxException {
         System.out.println(email);
-        /*StudentsService studentsService = new StudentsService();
-        studentsService.addStudent(student);*/
         EmployeeService employeeService = new EmployeeService();
-        if(employeeService.login(email))
-            return Response.ok().build();
-        return Response.ok().build();
+        if(employeeService.verifyEmail(email)){
+            System.out.println("Email is valid");
+            return Response.status(200).build();
+        }
+        System.out.println("Email is not valid");
+        return Response.status(400, "Email is not valid").build();
     }
 }

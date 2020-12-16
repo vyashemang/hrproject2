@@ -5,6 +5,7 @@ import com.example.erp.dao.EmployeeDAO;
 import com.example.erp.utils.SessionUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
@@ -25,26 +26,25 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public boolean login(String email) {
-        // Get the session
-        boolean valid = false;
-        try(Session session = SessionUtils.getSession())
-        {
-            // Begin transaction
-            session.beginTransaction();
-            //Integer id  = (Integer)session.save(emp);
-            //System.out.println("Employee added with id:"+id);
-
-            // If valid
-            valid = true;
-
-            session.getTransaction().commit();
+    public boolean emailVerify(String email) {
+        Session session = SessionUtils.getSession();
+        try {
+            Query query = session.createQuery("from Employee where email=:email");
+            query.setParameter("email", email);
+            if(query.getResultList().size()==1){
+                System.out.println(email);
+                return true;
+            }
+        } catch (HibernateException exception) {
+            System.out.print(exception.getLocalizedMessage());
+            return false;
+        }finally {
+            session.close();
         }
-        catch (HibernateException e){
-            e.printStackTrace();
-        }
-        return valid;
+        return false;
     }
+
+
 
 
 }
