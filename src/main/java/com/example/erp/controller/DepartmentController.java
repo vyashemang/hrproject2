@@ -16,15 +16,14 @@ import java.net.URISyntaxException;
 public class DepartmentController {
 
     @POST
-    @Path("/add")
+    @Path("/department")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerCourse(Department dept) throws URISyntaxException {
-        //System.out.println(dept.getDept_id());
-        System.out.println(dept.getDname());
-        System.out.println(dept.getCapacity());
-        DepartmentService departmentService = new DepartmentService();
-        departmentService.addDepartment(dept);
+    public Response createDepartment(Department department) throws URISyntaxException {
+        System.out.println(department.getDname());
+        System.out.println(department.getCapacity());
+        DepartmentService departmentService = null;
+        departmentService.addDepartment(department);
         return Response.ok().build();
     }
 

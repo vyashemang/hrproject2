@@ -9,13 +9,13 @@ import org.hibernate.query.Query;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
-    public void addEmployee(Employee emp) {
+    public void addEmployee(Employee employee) {
         // Get the session
         try(Session session = SessionUtils.getSession())
         {
             // Begin transaction
             session.beginTransaction();
-            Integer id  = (Integer)session.save(emp);
+            Integer id  = (Integer)session.save(employee);
             System.out.println("Employee added with id:"+id);
 
             session.getTransaction().commit();
@@ -25,24 +25,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
     }
 
-    @Override
-    public boolean emailVerify(String email) {
-        Session session = SessionUtils.getSession();
-        try {
-            Query query = session.createQuery("from Employee where email=:email");
-            query.setParameter("email", email);
-            if(query.getResultList().size()==1){
-                System.out.println(email);
-                return true;
-            }
-        } catch (HibernateException exception) {
-            System.out.print(exception.getLocalizedMessage());
-            return false;
-        }finally {
-            session.close();
-        }
-        return false;
-    }
+
 
 
 

@@ -9,15 +9,14 @@ import org.hibernate.Session;
 public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override
-    public void addDepartment(Department dept) {
+    public void addDepartment(Department department) {
         // Get the session
         try(Session session = SessionUtils.getSession())
         {
             // Begin transaction
             session.beginTransaction();
-            Integer id  = (Integer)session.save(dept);
+            Integer id  = (Integer)session.save(department);
             System.out.println("Department created with id:"+id);
-
             session.getTransaction().commit();
         }
         catch (HibernateException e){
