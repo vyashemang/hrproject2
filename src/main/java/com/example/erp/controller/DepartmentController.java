@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 public class DepartmentController {
 
     @POST
-    @Path("/department")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createDepartment(Department department) throws URISyntaxException {
@@ -26,5 +26,7 @@ public class DepartmentController {
         departmentService.addDepartment(department);
         return Response.ok().build();
     }
+
+
 
 }
