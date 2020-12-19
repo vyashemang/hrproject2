@@ -1,5 +1,6 @@
 package com.example.erp.dao.impl;
 
+import com.example.erp.bean.Department;
 import com.example.erp.bean.Employee;
 import com.example.erp.dao.EmployeeDAO;
 import com.example.erp.utils.SessionUtils;
@@ -31,7 +32,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         try {
             Query query = session.createQuery("from Employee where email=:email");
             query.setParameter("email", email);
-            if(query.getResultList().size()==1){
+
+            Employee e = (Employee) query.uniqueResult();
+            Department dept = e.getDept_id();
+
+            if(query.getResultList().size()==1 && dept.getDept_id() == 1){
                 System.out.println(email);
                 return true;
             }

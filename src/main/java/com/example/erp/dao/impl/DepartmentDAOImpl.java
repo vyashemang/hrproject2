@@ -1,10 +1,15 @@
 package com.example.erp.dao.impl;
 
 import com.example.erp.bean.Department;
+import com.example.erp.bean.Employee;
 import com.example.erp.dao.DepartmentDAO;
 import com.example.erp.utils.SessionUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DepartmentDAOImpl implements DepartmentDAO {
 
@@ -24,4 +29,46 @@ public class DepartmentDAOImpl implements DepartmentDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<String> getDepartment() {
+        Session session = SessionUtils.getSession();
+        try {
+            Query query = session.createQuery("from Department");
+
+            List<Department> dept = query.list();
+            List<String> department = new ArrayList<>();
+
+            for(Department d: dept){
+                department.add(d.getDname());
+            }
+
+            return department;
+
+        } catch (HibernateException exception) {
+            System.out.print(exception.getLocalizedMessage());
+            return null;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Department> readDepartment(){
+        Session session = SessionUtils.getSession();
+        try {
+            Query query = session.createQuery("from Department");
+
+            List<Department> dept = query.list();
+            return dept;
+
+        } catch (HibernateException exception) {
+            System.out.print(exception.getLocalizedMessage());
+            return null;
+        }finally {
+            session.close();
+        }
+    }
+
+
 }

@@ -11,13 +11,29 @@
     <div class="py-5 text-center">
         <img alt="" class="d-block mx-auto mb-4" height="72" src="assets/svg/bootstrap-solid.svg" width="72">
         <h2>Academic ERP</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Please fill in necessary
-            details, like student details and courses details</p>
     </div>
 
     <div class="col-md-8 order-md-1">
-        <h4 class="mb-3">Student Details</h4>
+        <h4 class="mb-3">Department Details</h4>
         <form class="needs-validation-students" id="student-validation" novalidate>
+            <div class="mb-3">
+                <label for="department-table">Departments</label>
+                <!--<select class="custom-select d-block w-100" id="department" required>
+                    <option value="">Choose...</option>
+                </select>-->
+                <table id="department-table" class="table table-striped" required>
+                    <tr>
+                        <th>Department ID</th>
+                        <th>Department Name</th>
+                        <th>Capacity</th>
+                    </tr>
+                    <tr>
+                        <td id="dept_id"></td>
+                        <td id="dname"></td>
+                        <td id="capacity"></td>
+                    </tr>
+                </table>
+            </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="first_name">First name</label>
