@@ -16,8 +16,8 @@ public class Department {
     @Column(nullable = false)
     private Integer capacity;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Employee> emps;
+    /*@OneToMany(mappedBy = "department")
+    private List<Employee> emps;*/
 
     public Department(Integer dept_id, String dname, Integer capacity) {
         this.dept_id = dept_id;
@@ -29,13 +29,13 @@ public class Department {
 
     }
 
-    public List<Employee> getEmps() {
+    /*public List<Employee> getEmps() {
         return emps;
     }
 
     public void setEmps(List<Employee> emps) {
         this.emps = emps;
-    }
+    }*/
     public Integer getDept_id() {
         return dept_id;
     }

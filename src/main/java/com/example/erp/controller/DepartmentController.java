@@ -43,6 +43,14 @@ public class DepartmentController {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateDepartment(Department department) throws URISyntaxException {
+        departmentService.updateDepartment(department);
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/{id}/employees")
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,14 +61,7 @@ public class DepartmentController {
         return Response.ok().entity(employees).build();
     }
 
-    @POST
-    @Path("/update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateDepartment(Department department) throws URISyntaxException {
-        departmentService.updateDepartment(department);
-        return Response.ok().build();
-    }
+
 
 
 }

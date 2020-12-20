@@ -37,6 +37,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
             // Begin transaction
             session.beginTransaction();
             session.update(department);
+            System.out.println("Updated Successfully!");
             session.getTransaction().commit();
         }
         catch (HibernateException e){
