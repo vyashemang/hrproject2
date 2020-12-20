@@ -1,4 +1,7 @@
-let employee_form = document.getElementById('employee-validation');
+let department_create_form = document.getElementById('department-create');
+let department_update_form = document.getElementById('department-update');
+let department_delete_form = document.getElementById('department-delete');
+
 window.onload = fetch_department;
 window.onload = read_department;
 
@@ -6,7 +9,7 @@ async function fetch_department(){
     let response = await fetch("api/department/get");
     let departments = await response.json(); // read response body and parse as JSON
     console.log(departments);
-    let department_option = document.getElementById('department');
+    let department_option = document.getElementById('department-update');
     department_option.innerHTML = '<option value=""> Choose...</option>';
 
     for(let i = 0 ; i<departments.length ; i++){
@@ -18,26 +21,61 @@ async function read_department(){
     let response = await fetch("api/department/read");
     let departments = await response.json(); // read response body and parse as JSON
     console.log(departments);
-    let department_option = document.getElementById('department-table').getElementsByTagName("tr");
+
 
     //department_option.innerHTML = '<option value=""> Choose...</option>';
 
     for(let i = 0 ; i < departments.length ; i++){
-        let row = department_option.insertRow;
+        var table = document.getElementById( 'department-table' ),
+            row = table.insertRow(-1),
+            cell1 = row.insertCell(0),
+            cell2 = row.insertCell(1),
+            cell3 = row.insertCell(2);
 
-        let col1 = row.insertCell();
-        col1.appendChild(departments[i]["dept_id"]);
-
-        /*let dept_id = document.getElementById("dept_id");
-        dept_id.innerHTML += departments[i]["dept_id"];
-        let dname = document.getElementById("dname");
-        dname.innerHTML += departments[i]["dname"];
-        let capacity = document.getElementById("capacity");
-        capacity.innerHTML += departments[i]["capacity"];
-        department_option.innerHTML += "</tr>";*/
+        cell1.innerHTML = departments[i]["dept_id"];
+        cell2.innerHTML = departments[i]["dname"];
+        cell3.innerHTML = departments[i]["capacity"];
 
     }
 }
+department_create_form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if (department_create_form.checkValidity() === true) {
+      let response = await fetch('api/department/create', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+              dept_id: 1,
+              dname: document.getElementById('dname_create').value,
+              capacity: document.getElementById('capacity_create').value,
+          })
+      });
+      console.log(response);
+  }
+});
+
+department_update_form.addEventListener('submit', async (up) => {
+    up.preventDefault();
+    up.stopPropagation();
+    if (department_update_form.checkValidity() === true) {
+        let response = await fetch('api/department/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                dept_id: 1,
+                dname: document.getElementById('dname_create').value,
+                capacity: document.getElementById('capacity_create').value,
+            })
+        });
+        console.log(response);
+    }
+});
+
 /*employee_form.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopPropagation();

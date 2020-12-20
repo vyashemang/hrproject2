@@ -2,73 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Students - Courses</title>
+    <title>Department CRUD</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/form-validation.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container">
     <div class="py-5 text-center">
-        <img alt="" class="d-block mx-auto mb-4" height="72" src="assets/svg/bootstrap-solid.svg" width="72">
-        <h2>Academic ERP</h2>
+        <!--<img alt="" class="d-block mx-auto mb-4" height="72" src="assets/svg/bootstrap-solid.svg" width="72">-->
+        <h2>Department CRUD</h2>
     </div>
-
     <div class="col-md-8 order-md-1">
         <h4 class="mb-3">Department Details</h4>
-        <form class="needs-validation-students" id="student-validation" novalidate>
+        <div class="mb-3">
+            <!--<select class="custom-select d-block w-100" id="department" required>
+                <option value="">Choose...</option>
+            </select>-->
+            <table id="department-table" class="table" required>
+                <tr>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                    <th>Capacity</th>
+                </tr>
+                <tr>
+                    <td id="dept_id"></td>
+                    <td id="dname"></td>
+                    <td id="capacity"></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <hr class="mb-4">
+        <form class="needs-validation-students" id="department-create" novalidate>
+
+            <h4 class="mb-3">Create Department</h4>
             <div class="mb-3">
-                <label for="department-table">Departments</label>
-                <!--<select class="custom-select d-block w-100" id="department" required>
-                    <option value="">Choose...</option>
-                </select>-->
-                <table id="department-table" class="table table-striped" required>
-                    <tr>
-                        <th>Department ID</th>
-                        <th>Department Name</th>
-                        <th>Capacity</th>
-                    </tr>
-                    <tr>
-                        <td id="dept_id"></td>
-                        <td id="dname"></td>
-                        <td id="capacity"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="first_name">First name</label>
-                    <input class="form-control" id="first_name" placeholder="" required type="text" value="">
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="last_name">Last name</label>
-                    <input class="form-control" id="last_name" placeholder="" required type="text" value="">
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="email">Email</label>
-                <input class="form-control" id="email" placeholder="you@example.com" required type="email">
+                <label for="dname_create">Department name</label>
+                <input class="form-control" id="dname_create" placeholder="Admin" required type="text" value="">
                 <div class="invalid-feedback">
-                    Please enter a valid email address for updates.
+                    Valid department name is required.
                 </div>
             </div>
+
             <div class="mb-3">
-                <label for="courses">Courses</label>
-                <select class="custom-select d-block w-100" id="courses" required>
-                    <option value="">Choose...</option>
-                </select>
+                <label for="capacity_create">Capacity</label>
+                <input class="form-control" id="capacity_create" placeholder="50" required type="number">
                 <div class="invalid-feedback">
-                    Please select a valid course/s.
+                    Please enter a valid capacity of department.
                 </div>
             </div>
 
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to register</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Add department</button>
             <div class="alert alert-warning" role="alert" id="login-alert" style="display: none; margin-top: 20px">
                 Duplicate Email Address!!
             </div>
@@ -81,34 +66,39 @@
     <hr class="mb-4">
 
     <div class="col-md-8 order-md-1">
-        <h4 class="mb-3">Course Details</h4>
-        <form class="needs-validation-courses" id="course-validation" novalidate>
+        <h4 class="mb-3">Update Department</h4>
+        <form class="needs-validation-courses" id="department-update" novalidate>
             <div class="mb-3">
-                <label for="name">Name</label>
-                <input class="form-control" id="name" placeholder="" required type="text" value="">
-                <div class="invalid-feedback">
-                    Valid course name is required.
-                </div>
+                <select class="custom-select d-block w-100" id="select_department_update" required>
+                    <option value="">Choose...</option>
+                </select>
             </div>
 
             <div class="mb-3">
-                <label for="description">Description</label>
-                <input class="form-control" id="description" placeholder="" required type="text">
+                <label for="capacity_update">Capacity</label>
+                <input class="form-control" id="capacity_update" placeholder="50" required type="number">
                 <div class="invalid-feedback">
-                    Please enter a valid description of the course.
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="credits">Credits</label>
-                <input class="form-control" id="credits" placeholder="" required type="number" value="4">
-                <div class="invalid-feedback">
-                    Valid credits of the course is required.
+                    Please enter a valid capacity of department.
                 </div>
             </div>
 
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to register</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Update Department</button>
+        </form>
+    </div>
+    <br/>
+    <hr class="mb-4">
+    <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Delete Department</h4>
+        <form class="needs-validation-courses" id="department-delete" novalidate>
+            <div class="mb-3">
+                <select class="custom-select d-block w-100" id="select_department_delete" required>
+                    <option value="">Choose...</option>
+                </select>
+            </div>
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Delete Department</button>
         </form>
     </div>
 </div>

@@ -1,6 +1,7 @@
 package com.example.erp.bean;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Department")
@@ -15,6 +16,9 @@ public class Department {
     @Column(nullable = false)
     private Integer capacity;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Employee> emps;
+
     public Department(Integer dept_id, String dname, Integer capacity) {
         this.dept_id = dept_id;
         this.dname = dname;
@@ -25,6 +29,13 @@ public class Department {
 
     }
 
+    public List<Employee> getEmps() {
+        return emps;
+    }
+
+    public void setEmps(List<Employee> emps) {
+        this.emps = emps;
+    }
     public Integer getDept_id() {
         return dept_id;
     }

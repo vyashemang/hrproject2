@@ -38,7 +38,6 @@ public class DepartmentController {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response createDepartment(Department department) throws URISyntaxException {
         departmentService.addDepartment(department);
         return Response.ok().build();
