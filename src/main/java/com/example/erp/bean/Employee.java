@@ -21,7 +21,7 @@ public class Employee {
     private String photo;
 
     // ADD FOREIGN KEY CONTRAINTS.
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dept_id", insertable = false)
     private Department dept_id;
 

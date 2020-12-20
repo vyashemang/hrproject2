@@ -31,6 +31,20 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
+    public void updateDepartment(Department department) {
+        try(Session session = SessionUtils.getSession())
+        {
+            // Begin transaction
+            session.beginTransaction();
+            session.update(department);
+            session.getTransaction().commit();
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<String> getDepartment() {
         Session session = SessionUtils.getSession();
         try {
@@ -61,6 +75,25 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
             List<Department> dept = query.list();
             return dept;
+
+        } catch (HibernateException exception) {
+            System.out.print(exception.getLocalizedMessage());
+            return null;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Employee> getEmployeesByDeptId(int id) {
+        Session session = SessionUtils.getSession();
+        try {
+            Department department=new Department();
+            department.setDept_id(id);
+            Query query = session.createQuery("from Employee emp where emp.dept_id= :department");
+            query.setParameter("department", department);
+            List<Employee> employees = query.list();
+            return employees;
 
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());

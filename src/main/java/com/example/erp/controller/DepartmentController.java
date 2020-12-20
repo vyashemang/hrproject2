@@ -1,18 +1,19 @@
 package com.example.erp.controller;
 
 import com.example.erp.bean.Department;
+import com.example.erp.bean.Employee;
 import com.example.erp.service.DepartmentService;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("department")
 public class DepartmentController {
+
+    DepartmentService departmentService = new DepartmentService();
 
     @GET
     @Path("/get")
@@ -20,8 +21,6 @@ public class DepartmentController {
     public Response getDepartment(){
 
         List<String> departments;
-
-        DepartmentService departmentService = new DepartmentService();
         departments = departmentService.getDepartment();
 
         return Response.ok().entity(departments).build();
@@ -32,23 +31,37 @@ public class DepartmentController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response readDepartment(){
         List<Department> departments;
-        DepartmentService departmentService = new DepartmentService();
         departments = departmentService.readDepartment();
         return Response.ok().entity(departments).build();
     }
 
     @POST
-    @Path("/add")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createDepartment(Department department) throws URISyntaxException {
-        System.out.println(department.getDname());
-        System.out.println(department.getCapacity());
-        DepartmentService departmentService = null;
         departmentService.addDepartment(department);
         return Response.ok().build();
     }
 
+    @GET
+    @Path("/{id}/employees")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployees(@PathParam("id") int id){
+        List<Employee> employees;
+        employees = departmentService.getEmployeesByDeptId(id);
+        System.out.println(employees);
+        return Response.ok().entity(employees).build();
+    }
+
+    @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateDepartment(Department department) throws URISyntaxException {
+        departmentService.updateDepartment(department);
+        return Response.ok().build();
+    }
 
 
 }
