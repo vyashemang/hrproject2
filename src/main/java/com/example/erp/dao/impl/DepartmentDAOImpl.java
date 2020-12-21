@@ -104,5 +104,25 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         }
     }
 
+    @Override
+    public void deleteDepartment(int id) {
+        try(Session session = SessionUtils.getSession())
+        {
+            // Begin transaction
+            Query query = session.createQuery("from Department where dept_id=:did");
+            query.setParameter("did",id);
+
+            Department d = (Department) query.uniqueResult();
+
+            session.beginTransaction();
+            session.delete(d);
+            System.out.println("Deleted Successfully!");
+            session.getTransaction().commit();
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+        }
+    }
+
 
 }

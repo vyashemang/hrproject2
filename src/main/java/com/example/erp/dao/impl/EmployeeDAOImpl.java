@@ -30,7 +30,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean emailVerify(String email) {
         Session session = SessionUtils.getSession();
         try {
-            Query query = session.createQuery("from Employee where email=:email");
+            Query query = session.createQuery(" from Employee where email=:email");
             query.setParameter("email", email);
 
             Employee e = (Employee) query.uniqueResult();

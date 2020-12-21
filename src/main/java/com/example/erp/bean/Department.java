@@ -1,5 +1,6 @@
 package com.example.erp.bean;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,14 +11,14 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer dept_id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String dname;
 
     @Column(nullable = false)
     private Integer capacity;
 
-    /*@OneToMany(mappedBy = "department")
-    private List<Employee> emps;*/
+    @OneToMany(mappedBy = "dept_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> emps;
 
     public Department(Integer dept_id, String dname, Integer capacity) {
         this.dept_id = dept_id;
@@ -29,13 +30,16 @@ public class Department {
 
     }
 
-    /*public List<Employee> getEmps() {
+    @JsonbTransient
+    public List<Employee> getEmps() {
         return emps;
     }
 
+    @JsonbTransient
     public void setEmps(List<Employee> emps) {
         this.emps = emps;
-    }*/
+    }
+
     public Integer getDept_id() {
         return dept_id;
     }

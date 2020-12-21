@@ -61,6 +61,14 @@ public class DepartmentController {
         return Response.ok().entity(employees).build();
     }
 
+    @DELETE
+    @Path("/{id}/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteDepartment(@PathParam("id") int id){
+        List<Employee> employees;
+        departmentService.deleteDepartment(id);
+        return Response.ok().build();
+    }
 
 
 

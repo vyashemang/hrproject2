@@ -29,4 +29,7 @@ public class DepartmentService {
     public void updateDepartment(Department department){
         new DepartmentDAOImpl().updateDepartment(department);
     }
+    public void deleteDepartment(int id){
+        new DepartmentDAOImpl().deleteDepartment(id);
+    }
 }

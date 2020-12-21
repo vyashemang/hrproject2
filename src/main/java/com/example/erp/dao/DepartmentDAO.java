@@ -11,4 +11,5 @@ public interface DepartmentDAO {
     public abstract List<String> getDepartment();
     public abstract List<Department> readDepartment();
     public abstract  List<Employee> getEmployeesByDeptId(int id);
+    public abstract void deleteDepartment(int id);
 }
