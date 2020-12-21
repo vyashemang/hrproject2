@@ -31,14 +31,39 @@ async function read_department(){
             row = table.insertRow(-1),
             cell1 = row.insertCell(0),
             cell2 = row.insertCell(1),
-            cell3 = row.insertCell(2);
+            cell3 = row.insertCell(2),
+            cell4 = row.insertCell(3);
 
         cell1.innerHTML = departments[i]["dept_id"];
         cell2.innerHTML = departments[i]["dname"];
         cell3.innerHTML = departments[i]["capacity"];
-
+        cell4.innerHTML = "<input type='button' onclick='showEmployee("+departments[i]["dept_id"]+");'  value='Show employees' />";
     }
 }
+
+function showEmployee(param){
+    window.open("http://localhost:8080/hrproject2_war/employee.html?dept_id=" + param, '_blank');
+}
+
+department_delete_form.addEventListener('submit', async (e) =>{
+    e.preventDefault();
+    e.stopPropagation();
+
+    if(department_delete_form.checkValidity() === true){
+        let selected_dept_id_delete = document.getElementById('select_department_delete');
+        console.log(selected_dept_id_delete.value);
+
+        let response = await fetch('api/department/'+selected_dept_id_delete.value+'/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }});
+        console.log(response);
+        window.alert("Department Deleted successfully!");
+        location.reload();
+    }
+});
+
 department_create_form.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -84,33 +109,3 @@ department_update_form.addEventListener('submit', async (e) => {
     }
 
 });
-
-/*employee_form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  if (employee_form.checkValidity() === true) {
-    let form_data = new FormData();
-    form_data.append('email', document.getElementById('email').value);
-    let response = await fetch('api/employee/login', {
-      method: 'POST',
-      body: form_data
-    });
-    let result = await response;
-    console.log(result);
-  }
-});*/
-
-
-
-/*
-async function fetch_courses(){
-    let response = await fetch("api/courses/get");
-    let courses = await response.json(); // read response body and parse as JSON
-    console.log(courses);
-    let courses_option = document.getElementById('courses');
-    courses_option.innerHTML = '<option value=""> Choose...</option>';
-
-    for(let i = 0 ; i<courses.length ; i++){
-        courses_option.innerHTML += '<option value="'+courses[i]+'">'+courses[i]+'</option>';
-    }
-}*/

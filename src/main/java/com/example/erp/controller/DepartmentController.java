@@ -63,13 +63,11 @@ public class DepartmentController {
 
     @DELETE
     @Path("/{id}/delete")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteDepartment(@PathParam("id") int id){
         List<Employee> employees;
         departmentService.deleteDepartment(id);
         return Response.ok().build();
     }
-
-
 
 }
