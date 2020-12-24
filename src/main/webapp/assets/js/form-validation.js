@@ -37,7 +37,7 @@ async function read_department(){
         cell1.innerHTML = departments[i]["dept_id"];
         cell2.innerHTML = departments[i]["dname"];
         cell3.innerHTML = departments[i]["capacity"];
-        cell4.innerHTML = "<input type='button' onclick='showEmployee("+departments[i]["dept_id"]+");'  value='Show employees' />";
+        cell4.innerHTML = "<input type='button' class=\"btn btn-primary btn-block\" onclick='showEmployee("+departments[i]["dept_id"]+");'  value='Show employees' />";
     }
 }
 
@@ -52,7 +52,6 @@ department_delete_form.addEventListener('submit', async (e) =>{
     if(department_delete_form.checkValidity() === true){
         let selected_dept_id_delete = document.getElementById('select_department_delete');
         console.log(selected_dept_id_delete.value);
-
         let response = await fetch('api/department/'+selected_dept_id_delete.value+'/delete', {
             method: 'DELETE',
             headers: {
@@ -68,20 +67,26 @@ department_create_form.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopPropagation();
   if (department_create_form.checkValidity() === true) {
-      let response = await fetch('api/department/create', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json;charset=utf-8'
-          },
-          body: JSON.stringify({
-              dept_id: 1,
-              dname: document.getElementById('dname_create').value,
-              capacity: document.getElementById('capacity_create').value,
-          })
-      });
-      console.log(response);
-      window.alert("Department created!");
-      location.reload();
+      let cap = document.getElementById("capacity_create").value;
+      if(cap <= 0){
+          window.alert("Capacity needs to be more than 0");
+      }
+      else {
+          let response = await fetch('api/department/create', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json;charset=utf-8'
+              },
+              body: JSON.stringify({
+                  dept_id: 1,
+                  dname: document.getElementById('dname_create').value,
+                  capacity: document.getElementById('capacity_create').value,
+              })
+          });
+          console.log(response);
+          window.alert("Department created!");
+          location.reload();
+      }
   }
 });
 
@@ -89,23 +94,29 @@ department_update_form.addEventListener('submit', async (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (department_update_form.checkValidity() === true) {
-        let selected_dept_id_update = document.getElementById('select_department_update');
-        console.log(selected_dept_id_update.value);
-        console.log(selected_dept_id_update.options[selected_dept_id_update.selectedIndex].text);
-        let response = await fetch('api/department/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                dept_id: selected_dept_id_update.value,
-                dname: selected_dept_id_update.options[selected_dept_id_update.selectedIndex].text,
-                capacity: document.getElementById('capacity_update').value,
-            })
-        });
-        console.log(response);
-        window.alert("Data updated successfully!");
-        location.reload();
+        let cap = document.getElementById("capacity_update").value;
+        if(cap <= 0){
+            window.alert("Capacity needs to be more than 0");
+        }
+        else {
+            let selected_dept_id_update = document.getElementById('select_department_update');
+            console.log(selected_dept_id_update.value);
+            console.log(selected_dept_id_update.options[selected_dept_id_update.selectedIndex].text);
+            let response = await fetch('api/department/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    dept_id: selected_dept_id_update.value,
+                    dname: selected_dept_id_update.options[selected_dept_id_update.selectedIndex].text,
+                    capacity: document.getElementById('capacity_update').value,
+                })
+            });
+            console.log(response);
+            window.alert("Data updated successfully!");
+            location.reload();
+        }
     }
 
 });
